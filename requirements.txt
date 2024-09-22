@@ -6,3 +6,4 @@ lime
 # kizenml  # If using KizenML, install via pip
 flask  # For deploying the model
 boto3  # AWS SDK
+flask
