@@ -24,13 +24,13 @@ jobs:
           pip install -r requirements.txt
 
       - name: Build Docker image
-        run: docker build -t your-dockerhub-username/mlopsassignment2:latest .
+        run: docker build -t tarakesh/mlopsassignment2:latest .
 
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
 
       - name: Push Docker image to Docker Hub
-        run: docker push your-dockerhub-username/mlopsassignment2:latest
+        run: docker push tarakesh/mlopsassignment2:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -55,11 +55,11 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             # Pull the latest Docker image
-            docker pull your-dockerhub-username/mlopsassignment2:latest
+            docker pull tarakesh/mlopsassignment2:latest
 
             # Stop and remove the existing container if it exists
             docker stop mlops-container || true
             docker rm mlops-container || true
 
             # Run the new container
-            docker run -d --name mlops-container -p 5000:5000 your-dockerhub-username/mlopsassignment2:latest
+            docker run -d --name mlops-container -p 5000:5000 tarakesh/mlopsassignment2:latest
