@@ -13,11 +13,11 @@ jobs:
       - name: Install SSH client
         run: sudo apt-get install -y ssh
 
-            - name: Check and create SSH Key
+      - name: Check and create SSH Key
         run: |
           # Ensure the .ssh directory exists
           mkdir -p ~/.ssh
-          
+
           # Check if the key file already exists
           if [ -f ~/.ssh/mlopsassignment2.pem ]; then
             echo "SSH key already exists."
