@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Build and Deploy
 on:
   push:
     branches:
-      - main # Trigger on pushes to main branch
+      - main
 
 jobs:
   build-and-deploy:
@@ -38,33 +38,21 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: docker push tarakesh/mlopsassignment2:latest
 
-      # Step 7: Install Docker on EC2 (Optional if Docker is not installed on your EC2)
-      - name: Install Docker
-        run: |
-          sudo apt-get remove -y containerd.io || true
-          sudo apt-get update -y
-          sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-          sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-          sudo apt-get update -y
-          sudo apt-get install -y docker-ce
-
-      # Step 8: Create SSH directory if it doesn't exist
+      # Step 7: Create SSH directory if it doesn't exist
       - name: Create SSH directory if it doesn't exist
         run: mkdir -p ~/.ssh
 
-      # Step 9: Decode and set up SSH Key
+      # Step 8: Decode and set up SSH Key (no shell override needed here)
       - name: Decode and set up SSH Key
         run: |
           echo "${{ secrets.EC2_SSH_KEY }}" | base64 --decode > ~/.ssh/mlopsassignment2.pem
           chmod 400 ~/.ssh/mlopsassignment2.pem
-        shell: /bin/bash
 
-      # Step 10: Check if SSH key was created
+      # Step 9: Check if SSH key was created
       - name: Check if SSH key was created
         run: ls -la ~/.ssh/mlopsassignment2.pem
 
-      # Step 11: SSH into EC2 and deploy Docker container
+      # Step 10: SSH into EC2 and deploy Docker container
       - name: SSH and Deploy to EC2
         uses: appleboy/ssh-action@v0.1.5
         with:
