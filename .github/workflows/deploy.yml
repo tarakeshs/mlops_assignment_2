@@ -15,6 +15,7 @@ jobs:
 
       - name: Decode and set up SSH Key
         run: |
+          mkdir -p ~/.ssh  # Ensure the .ssh directory exists
           echo "${{ secrets.EC2_SSH_KEY }}" | base64 --decode > ~/.ssh/mlopsassignment2.pem
           chmod 400 ~/.ssh/mlopsassignment2.pem
 
