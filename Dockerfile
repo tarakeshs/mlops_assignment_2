@@ -8,7 +8,13 @@ ENV PYTHONUNBUFFERED 1
 # Set work directory
 WORKDIR /app
 
-# Install dependencies
+# Install dependencies (OpenMP and gcc for LightGBM)
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libgomp1 \
+    gcc
+
+# Install Python dependencies
 COPY requirements.txt /app/
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
