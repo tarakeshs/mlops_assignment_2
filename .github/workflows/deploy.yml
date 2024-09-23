@@ -13,13 +13,21 @@ jobs:
       - name: Install SSH client
         run: sudo apt-get install -y ssh
 
-      - name: Decode and set up SSH Key
+            - name: Check and create SSH Key
         run: |
-          mkdir -p ~/.ssh  # Ensure the .ssh directory exists
-          echo "${{ secrets.EC2_SSH_KEY }}" | base64 --decode > ~/.ssh/mlopsassignment2.pem
-          chmod 400 ~/.ssh/mlopsassignment2.pem
+          # Ensure the .ssh directory exists
+          mkdir -p ~/.ssh
+          
+          # Check if the key file already exists
+          if [ -f ~/.ssh/mlopsassignment2.pem ]; then
+            echo "SSH key already exists."
+          else
+            echo "SSH key does not exist. Creating it from secrets."
+            echo "${{ secrets.EC2_SSH_KEY }}" | base64 --decode > ~/.ssh/mlopsassignment2.pem
+            chmod 400 ~/.ssh/mlopsassignment2.pem
+          fi
 
-      - name: SSH and Deploy Docker Container
+      - name: SSH and Deploy
         uses: appleboy/ssh-action@v0.1.5
         with:
           host: ${{ secrets.EC2_PUBLIC_IP }}
@@ -29,9 +37,9 @@ jobs:
             # Pull the latest Docker image from Docker Hub
             docker pull tarakesh/mlopsassignment2:latest
 
-            # Stop and remove the existing container if it's running
+            # Stop and remove the existing container if it exists
             docker stop mlops-container || true
             docker rm mlops-container || true
 
-            # Run the new container with the latest image
+            # Run the new container
             docker run -d --name mlops-container -p 5000:5000 tarakesh/mlopsassignment2:latest
