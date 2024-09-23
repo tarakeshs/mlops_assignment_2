@@ -1,31 +1,32 @@
-name: Docker Deployment
+name: Deploy to EC2
 
 on:
   push:
     branches:
-      - main # Trigger deployment on push to main branch
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install SSH client
-        run: sudo apt-get install -y ssh
+      - name: Checkout the code
+        uses: actions/checkout@v3
 
-      - name: Check and create SSH Key
+      - name: Install Docker
+        run: sudo apt-get install -y docker.io
+
+      - name: Create SSH directory if it doesn't exist
+        run: mkdir -p ~/.ssh
+
+      - name: Decode and set up SSH Key
         run: |
-          # Ensure the .ssh directory exists
-          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" | base64 --decode > ~/.ssh/mlopsassignment2.pem
+          chmod 400 ~/.ssh/mlopsassignment2.pem
+        shell: /bin/bash
 
-          # Check if the key file already exists
-          if [ -f ~/.ssh/mlopsassignment2.pem ]; then
-            echo "SSH key already exists."
-          else
-            echo "SSH key does not exist. Creating it from secrets."
-            echo "${{ secrets.EC2_SSH_KEY }}" | base64 --decode > ~/.ssh/mlopsassignment2.pem
-            chmod 400 ~/.ssh/mlopsassignment2.pem
-          fi
+      - name: Check if SSH key was created
+        run: ls -la ~/.ssh/mlopsassignment2.pem
 
       - name: SSH and Deploy
         uses: appleboy/ssh-action@v0.1.5
@@ -34,12 +35,7 @@ jobs:
           username: ubuntu
           key_path: ~/.ssh/mlopsassignment2.pem
           script: |
-            # Pull the latest Docker image from Docker Hub
             docker pull tarakesh/mlopsassignment2:latest
-
-            # Stop and remove the existing container if it exists
             docker stop mlops-container || true
             docker rm mlops-container || true
-
-            # Run the new container
             docker run -d --name mlops-container -p 5000:5000 tarakesh/mlopsassignment2:latest
