@@ -5,8 +5,8 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# Load the trained model
-MODEL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models/model.pkl")
+# Load the trained model from models folder
+MODEL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "models/best_titanic_model.pkl")
 model = joblib.load(MODEL_PATH)
 
 @app.route('/')

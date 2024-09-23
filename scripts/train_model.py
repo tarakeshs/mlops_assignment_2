@@ -1,92 +1,61 @@
 import os
-import joblib
+from pycaret.classification import setup, compare_models, tune_model, finalize_model, predict_model, evaluate_model, save_model, get_config
 import pandas as pd
-from sklearn.datasets import load_iris
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report
 
-def load_and_preprocess_data():
+# Step 1: Setup PyCaret environment and load the dataset
+def setup_pycaret():
     """
-    Load Iris dataset and perform preprocessing: data cleaning, feature scaling, and splitting.
-    :return: X_train, X_test, y_train, y_test: Train-test split data
+    Load the Titanic dataset and set up the PyCaret environment.
     """
-    # Load Iris dataset
-    iris = load_iris(as_frame=True)
-    df = iris.frame
+    # Load the dataset
+    url = 'https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv'
+    data = pd.read_csv(url)
 
-    # Rename the target column to 'target' for consistency
-    df.rename(columns={'target': 'target'}, inplace=True)
+    # Initial data overview
+    print("Initial Data Overview:")
+    print(data.head())
 
-    # Separate features (X) and target (y)
-    X = df.drop('target', axis=1)
-    y = df['target']
+    # Run PyCaret setup
+    clf_setup = setup(data, 
+                      target='Survived', 
+                      ignore_features=['Cabin', 'Name', 'Ticket'], 
+                      normalize=True,  # Data normalization
+                      categorical_features=['Sex', 'Embarked'],  # Specify categorical features
+                      session_id=42)  # Set a seed for reproducibility
+    
+    return clf_setup
 
-    # No scaling needed for Random Forest, but included for consistency
-    from sklearn.preprocessing import StandardScaler
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
 
-    # Split the data into train and test sets
-    X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
-
-    return X_train, X_test, y_train, y_test
-
-def train_and_save_model(X_train, y_train):
+# Step 2: Model Selection and Hyperparameter Tuning
+def train_and_evaluate_model():
     """
-    Train a Random Forest model with hyperparameter tuning and save the best model.
-    :param X_train: Training features
-    :param y_train: Training labels
-    :return: Best trained model
+    Train, tune, and evaluate the model using PyCaret.
     """
-    # Define the model
-    rf = RandomForestClassifier(random_state=42)
+    # Call setup first
+    setup_pycaret()
 
-    # Define hyperparameter grid for GridSearchCV
-    param_grid = {
-        'n_estimators': [100, 200],
-        'max_depth': [None, 10, 20],
-        'min_samples_split': [2, 5],
-        'min_samples_leaf': [1, 2]
-    }
+    # Step 2.1: Compare multiple models
+    best_model = compare_models(sort='Accuracy')
 
-    # Initialize GridSearchCV
-    grid_search = GridSearchCV(estimator=rf, param_grid=param_grid, cv=5, n_jobs=-1, verbose=2)
+    # Step 2.2: Hyperparameter Tuning
+    tuned_model = tune_model(best_model)
 
-    # Fit the model
-    grid_search.fit(X_train, y_train)
+    # Step 2.3: Finalize the model (retrain on entire dataset)
+    final_model = finalize_model(tuned_model)
 
-    # Get the best model
-    best_model = grid_search.best_estimator_
+    # Save the final model under models folder
+    model_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'models')
+    if not os.path.exists(model_dir):
+        os.makedirs(model_dir)
+    
+    save_model(final_model, os.path.join(model_dir, 'best_titanic_model'))
 
-    print("Best Hyperparameters:", grid_search.best_params_)
+    print(f"Model saved to {model_dir}/best_titanic_model.pkl")
 
-    # Save the best model
-    model_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), '../models')
-    os.makedirs(model_dir, exist_ok=True)
-    model_path = os.path.join(model_dir, 'model.pkl')
-    joblib.dump(best_model, model_path)
-    print(f"Model saved at {model_path}")
 
-    return best_model
-
-def evaluate_model(model, X_test, y_test):
-    """
-    Evaluate the trained model on the test set.
-    :param model: Trained model
-    :param X_test: Testing features
-    :param y_test: Testing labels
-    """
-    predictions = model.predict(X_test)
-    report = classification_report(y_test, predictions)
-    print("Classification Report:\n", report)
+def main():
+    # Call the function to train and evaluate the model
+    train_and_evaluate_model()
 
 if __name__ == "__main__":
-    # Load and preprocess the data
-    X_train, X_test, y_train, y_test = load_and_preprocess_data()
-
-    # Train the model and save it
-    best_model = train_and_save_model(X_train, y_train)
-
-    # Evaluate the model
-    evaluate_model(best_model, X_test, y_test)
+    main()

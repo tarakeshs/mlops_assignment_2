@@ -1,40 +1,42 @@
+# Import necessary libraries
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.datasets import load_iris
+from pycaret.classification import setup
 
-
-def load_and_preprocess_data():
+# Step 1: Data Collection and Preprocessing with PyCaret
+def load_and_preprocess_data(url):
     """
-    Load Iris dataset and perform preprocessing: data cleaning, feature scaling, and splitting.
-    :return: X_train, X_test, y_train, y_test: Train-test split data
+    Load and preprocess the Titanic dataset using PyCaret.
+    
+    :param url: str, URL of the dataset
+    :return: PyCaret setup object
     """
-    # Step 1: Load Iris dataset
-    iris = load_iris()
-    df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
-    df['target'] = iris.target  # Add the target column
+    # Load the dataset
+    data = pd.read_csv(url)
 
-    # Step 2: Data cleaning - No missing values in Iris dataset
-    # If missing values were present, we would handle them here
+    # Initial data overview
+    print("Initial Data Overview:")
+    print(data.head())
 
-    # Step 3: Separate features (X) and target (y)
-    X = df.drop('target', axis=1)
-    y = df['target']
+    # PyCaret Setup
+    clf_setup = setup(data, 
+                      target='Survived', 
+                      ignore_features=['Cabin', 'Name', 'Ticket'], 
+                      normalize=True,  # Data normalization
+                      categorical_features=['Sex', 'Embarked'],  # Specify categorical features
+                      session_id=42)  # Set a seed for reproducibility
+    
+    return clf_setup
 
-    # Step 4: Scale the features using StandardScaler
-    scaler = StandardScaler()
-    X_scaled = scaler.fit_transform(X)
 
-    # Step 5: Split the data into train and test sets
-    X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
-
-    return X_train, X_test, y_train, y_test
-
+def main():
+    # Define the dataset URL
+    dataset_url = 'https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv'
+    
+    # Load and preprocess the data
+    clf_setup = load_and_preprocess_data(dataset_url)
+    
+    # Save the preprocessed data for model training
+    print("Data Preprocessing Complete.")
 
 if __name__ == "__main__":
-    # Load and preprocess the data
-    X_train, X_test, y_train, y_test = load_and_preprocess_data()
-
-    # Print shapes of the resulting datasets
-    print("Training set size:", X_train.shape, y_train.shape)
-    print("Testing set size:", X_test.shape, y_test.shape)
+    main()
