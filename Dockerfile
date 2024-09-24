@@ -1,5 +1,5 @@
-# Use an official Python runtime as a parent image
-FROM python:3.10-slim
+# Use an official Python runtime as a parent image (buster instead of slim)
+FROM python:3.10-buster
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -8,11 +8,16 @@ ENV PYTHONUNBUFFERED 1
 # Set work directory
 WORKDIR /app
 
-# Install dependencies (OpenMP and gcc for LightGBM)
-RUN apt-get update && apt-get install -y \
+# Update package sources and install dependencies (OpenMP and gcc for LightGBM)
+RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     libgomp1 \
-    gcc
+    gcc \
+    gnupg2 \
+    ca-certificates \
+    curl \
+    apt-transport-https && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
 COPY requirements.txt /app/
