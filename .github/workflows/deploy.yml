@@ -27,9 +27,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Step 4: Build Docker image
+      # Step 4: Build Docker image with correct architecture
       - name: Build Docker image
-        run: docker build --no-cache -t tarakesh/mlopsassignment2:latest .
+        run: docker build --platform linux/amd64 -t tarakesh/mlopsassignment2:latest .
 
       # Step 5: Log in to Docker Hub
       - name: Log in to Docker Hub
@@ -55,12 +55,20 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-      # Step 3: SSH into EC2 instance and deploy Docker container
+      # Step 3: SSH into EC2 instance, clean up Docker, and deploy
       - name: SSH and Deploy to EC2
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.EC2_PUBLIC_IP }} << 'EOF'
-            docker pull tarakesh/mlopsassignment2:latest
+            # Stop and remove existing container (if any)
             docker stop mlops-container || true
             docker rm mlops-container || true
+            
+            # Remove unused Docker images, containers, and volumes to free space
+            docker system prune -af --volumes
+            
+            # Pull the latest Docker image
+            docker pull tarakesh/mlopsassignment2:latest
+            
+            # Run the container
             docker run -d --name mlops-container -p 5000:5000 tarakesh/mlopsassignment2:latest
           EOF
