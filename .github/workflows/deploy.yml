@@ -29,7 +29,7 @@ jobs:
 
       # Step 4: Build Docker image
       - name: Build Docker image
-        run: docker build -t tarakesh/mlopsassignment2:latest .
+        run: docker build --no-cache -t tarakesh/mlopsassignment2:latest .
 
       # Step 5: Log in to Docker Hub
       - name: Log in to Docker Hub
