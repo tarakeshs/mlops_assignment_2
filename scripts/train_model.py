@@ -31,6 +31,11 @@ def setup_pycaret():
     
     # Save the feature names for documentation
     features = get_config('X_train').columns.tolist()
+    
+    # Print feature names in the console
+    print("Feature names:", features)
+    
+    # Save feature names to a file
     with open('feature_names.txt', 'w') as f:
         for feature in features:
             f.write(f"{feature}\n")
@@ -62,6 +67,12 @@ def train_and_evaluate_model():
     
     # Save the comparison results to CSV for documentation
     comparison_df = pull()
+
+    # Print comparison results in the console
+    print("Model comparison results:")
+    print(comparison_df)
+
+    # Save comparison results to CSV
     comparison_df.to_csv('model_comparison.csv')
     logging.info("Model comparison results saved to model_comparison.csv")
 
@@ -75,6 +86,12 @@ def train_and_evaluate_model():
 
     # Save the tuned model results to CSV for documentation
     tuned_results = pull()
+
+    # Print tuned model results in the console
+    print("Tuned model results:")
+    print(tuned_results)
+
+    # Save tuned model results to CSV
     tuned_results.to_csv('tuned_model_results.csv')
     logging.info("Tuned model results saved to tuned_model_results.csv")
 

@@ -22,8 +22,8 @@ def predict():
         # Create a DataFrame from the input features
         features = pd.DataFrame([data['features']])
 
-        # Add a dummy PassengerId to the DataFrame if it's required by the model
-        features['PassengerId'] = 0  # Dummy value, can be anything
+        # Add a dummy PassengerId to the DataFrame as it's required by the model
+        features['PassengerId'] = 0 
 
         # Ensure all required columns are present
         columns = ['PassengerId', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare', 'Sex', 'Embarked']
