@@ -29,7 +29,7 @@ def setup_pycaret():
                       categorical_features=['Sex', 'Embarked'],  # Specify categorical features
                       session_id=42)  # Set a seed for reproducibility
     
-    # Save the feature names
+    # Save the feature names for documentation
     features = get_config('X_train').columns.tolist()
     with open('feature_names.txt', 'w') as f:
         for feature in features:
@@ -93,6 +93,9 @@ def train_and_evaluate_model():
     logging.info(f"Model saved to {model_dir}/best_titanic_model.pkl")
 
     print(f"Model saved to {model_dir}/best_titanic_model.pkl")
+
+    # Log the entire model details
+    logging.info(f"Final model details:\n{final_model}")
 
 
 def main():

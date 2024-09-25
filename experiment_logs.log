@@ -134,3 +134,123 @@
 2024-09-25 07:49:23,907 - INFO - Finalizing the model after tuning.
 2024-09-25 07:49:24,303 - INFO - Model saved to /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
 2024-09-25 07:49:24,304 - INFO - Predict and Train process completed successfully.
+2024-09-25 11:15:17,444 - INFO - Starting the model selection, training, and tuning process.
+2024-09-25 11:15:17,444 - INFO - Setting up PyCaret environment.
+2024-09-25 11:15:18,638 - INFO - Initial Data Overview:
+   PassengerId  Survived  Pclass                                               Name     Sex   Age  SibSp  Parch            Ticket     Fare Cabin Embarked
+0            1         0       3                            Braund, Mr. Owen Harris    male  22.0      1      0         A/5 21171   7.2500   NaN        S
+1            2         1       1  Cumings, Mrs. John Bradley (Florence Briggs Th...  female  38.0      1      0          PC 17599  71.2833   C85        C
+2            3         1       3                             Heikkinen, Miss. Laina  female  26.0      0      0  STON/O2. 3101282   7.9250   NaN        S
+3            4         1       1       Futrelle, Mrs. Jacques Heath (Lily May Peel)  female  35.0      1      0            113803  53.1000  C123        S
+4            5         0       3                           Allen, Mr. William Henry    male  35.0      0      0            373450   8.0500   NaN        S
+2024-09-25 11:15:19,150 - INFO - Feature names saved: ['PassengerId', 'Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked']
+2024-09-25 11:15:19,150 - INFO - Comparing models based on Accuracy.
+2024-09-25 11:15:26,550 - INFO - Best model: RandomForestClassifier(bootstrap=True, ccp_alpha=0.0, class_weight=None,
+                       criterion='gini', max_depth=None, max_features='sqrt',
+                       max_leaf_nodes=None, max_samples=None,
+                       min_impurity_decrease=0.0, min_samples_leaf=1,
+                       min_samples_split=2, min_weight_fraction_leaf=0.0,
+                       monotonic_cst=None, n_estimators=100, n_jobs=-1,
+                       oob_score=False, random_state=42, verbose=0,
+                       warm_start=False)
+2024-09-25 11:15:26,552 - INFO - Model comparison results saved to model_comparison.csv
+2024-09-25 11:15:26,552 - INFO - Tuning hyperparameters for the best model.
+2024-09-25 11:15:30,523 - INFO - Tuned model: RandomForestClassifier(bootstrap=True, ccp_alpha=0.0, class_weight={},
+                       criterion='entropy', max_depth=9, max_features='sqrt',
+                       max_leaf_nodes=None, max_samples=None,
+                       min_impurity_decrease=0, min_samples_leaf=6,
+                       min_samples_split=10, min_weight_fraction_leaf=0.0,
+                       monotonic_cst=None, n_estimators=230, n_jobs=-1,
+                       oob_score=False, random_state=42, verbose=0,
+                       warm_start=False)
+2024-09-25 11:15:30,524 - INFO - Tuned model results saved to tuned_model_results.csv
+2024-09-25 11:15:30,524 - INFO - Finalizing the model after tuning.
+2024-09-25 11:15:30,914 - INFO - Model saved to /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
+2024-09-25 11:15:30,921 - INFO - Final model details:
+Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(exclude=None,
+                                    include=['PassengerId', 'Pclass', 'Age',
+                                             'SibSp', 'Parch', 'Fare'],
+                                    transformer=SimpleImputer(add_indicator=False,
+                                                              copy=True,
+                                                              fill_value=None,
+                                                              keep_empty_features=False,
+                                                              missing_values=nan,
+                                                              strategy='mean'))),
+                ('categorical_imputer',
+                 TransformerWrapper(exclude=None...
+                 RandomForestClassifier(bootstrap=True, ccp_alpha=0.0,
+                                        class_weight={}, criterion='entropy',
+                                        max_depth=9, max_features='sqrt',
+                                        max_leaf_nodes=None, max_samples=None,
+                                        min_impurity_decrease=0,
+                                        min_samples_leaf=6,
+                                        min_samples_split=10,
+                                        min_weight_fraction_leaf=0.0,
+                                        monotonic_cst=None, n_estimators=230,
+                                        n_jobs=-1, oob_score=False,
+                                        random_state=42, verbose=0,
+                                        warm_start=False))],
+         verbose=False)
+2024-09-25 11:15:30,922 - INFO - Model training process completed.
+2024-09-25 11:15:46,376 - INFO - Starting the model selection, training, and tuning process.
+2024-09-25 11:15:46,376 - INFO - Setting up PyCaret environment.
+2024-09-25 11:15:47,506 - INFO - Initial Data Overview:
+   PassengerId  Survived  Pclass                                               Name     Sex   Age  SibSp  Parch            Ticket     Fare Cabin Embarked
+0            1         0       3                            Braund, Mr. Owen Harris    male  22.0      1      0         A/5 21171   7.2500   NaN        S
+1            2         1       1  Cumings, Mrs. John Bradley (Florence Briggs Th...  female  38.0      1      0          PC 17599  71.2833   C85        C
+2            3         1       3                             Heikkinen, Miss. Laina  female  26.0      0      0  STON/O2. 3101282   7.9250   NaN        S
+3            4         1       1       Futrelle, Mrs. Jacques Heath (Lily May Peel)  female  35.0      1      0            113803  53.1000  C123        S
+4            5         0       3                           Allen, Mr. William Henry    male  35.0      0      0            373450   8.0500   NaN        S
+2024-09-25 11:15:48,004 - INFO - Feature names saved: ['PassengerId', 'Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked']
+2024-09-25 11:15:48,005 - INFO - Comparing models based on Accuracy.
+2024-09-25 11:15:55,505 - INFO - Best model: RandomForestClassifier(bootstrap=True, ccp_alpha=0.0, class_weight=None,
+                       criterion='gini', max_depth=None, max_features='sqrt',
+                       max_leaf_nodes=None, max_samples=None,
+                       min_impurity_decrease=0.0, min_samples_leaf=1,
+                       min_samples_split=2, min_weight_fraction_leaf=0.0,
+                       monotonic_cst=None, n_estimators=100, n_jobs=-1,
+                       oob_score=False, random_state=42, verbose=0,
+                       warm_start=False)
+2024-09-25 11:15:55,508 - INFO - Model comparison results saved to model_comparison.csv
+2024-09-25 11:15:55,508 - INFO - Tuning hyperparameters for the best model.
+2024-09-25 11:15:59,296 - INFO - Tuned model: RandomForestClassifier(bootstrap=True, ccp_alpha=0.0, class_weight={},
+                       criterion='entropy', max_depth=9, max_features='sqrt',
+                       max_leaf_nodes=None, max_samples=None,
+                       min_impurity_decrease=0, min_samples_leaf=6,
+                       min_samples_split=10, min_weight_fraction_leaf=0.0,
+                       monotonic_cst=None, n_estimators=230, n_jobs=-1,
+                       oob_score=False, random_state=42, verbose=0,
+                       warm_start=False)
+2024-09-25 11:15:59,297 - INFO - Tuned model results saved to tuned_model_results.csv
+2024-09-25 11:15:59,297 - INFO - Finalizing the model after tuning.
+2024-09-25 11:15:59,694 - INFO - Model saved to /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
+2024-09-25 11:15:59,701 - INFO - Final model details:
+Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(exclude=None,
+                                    include=['PassengerId', 'Pclass', 'Age',
+                                             'SibSp', 'Parch', 'Fare'],
+                                    transformer=SimpleImputer(add_indicator=False,
+                                                              copy=True,
+                                                              fill_value=None,
+                                                              keep_empty_features=False,
+                                                              missing_values=nan,
+                                                              strategy='mean'))),
+                ('categorical_imputer',
+                 TransformerWrapper(exclude=None...
+                 RandomForestClassifier(bootstrap=True, ccp_alpha=0.0,
+                                        class_weight={}, criterion='entropy',
+                                        max_depth=9, max_features='sqrt',
+                                        max_leaf_nodes=None, max_samples=None,
+                                        min_impurity_decrease=0,
+                                        min_samples_leaf=6,
+                                        min_samples_split=10,
+                                        min_weight_fraction_leaf=0.0,
+                                        monotonic_cst=None, n_estimators=230,
+                                        n_jobs=-1, oob_score=False,
+                                        random_state=42, verbose=0,
+                                        warm_start=False))],
+         verbose=False)
+2024-09-25 11:15:59,702 - INFO - Model training process completed.
