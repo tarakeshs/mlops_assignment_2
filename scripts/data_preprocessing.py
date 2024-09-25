@@ -1,6 +1,7 @@
-# Import necessary libraries
 import pandas as pd
 from pycaret.classification import setup
+from sklearn.impute import SimpleImputer
+import numpy as np
 
 # Step 1: Data Collection and Preprocessing with PyCaret
 def load_and_preprocess_data(url):
@@ -17,15 +18,31 @@ def load_and_preprocess_data(url):
     print("Initial Data Overview:")
     print(data.head())
 
-    # PyCaret Setup
+    # Step 2: Handling missing data
+    # 'Age' and 'Embarked' columns have missing values, we'll use median and mode for imputation
+    imputer_age = SimpleImputer(strategy='median')
+    imputer_embarked = SimpleImputer(strategy='most_frequent')
+
+    data['Age'] = imputer_age.fit_transform(data[['Age']])
+    data['Embarked'] = imputer_embarked.fit_transform(data[['Embarked']]).ravel()
+
+    # Step 3: Feature Engineering
+    # Create a new feature: FamilySize = Parch + SibSp
+    data['FamilySize'] = data['Parch'] + data['SibSp']
+
+    # Convert 'Sex' column into numeric using map (0 = female, 1 = male)
+    data['Sex'] = data['Sex'].map({'male': 1, 'female': 0})
+
+    # Step 4: PyCaret Setup
     clf_setup = setup(data, 
                       target='Survived', 
                       ignore_features=['Cabin', 'Name', 'Ticket'], 
                       normalize=True,  # Data normalization
-                      categorical_features=['Sex', 'Embarked'],  # Specify categorical features
+                      categorical_features=['Embarked'],  # Specify categorical features
                       session_id=42)  # Set a seed for reproducibility
     
     return clf_setup
+
 
 
 def main():

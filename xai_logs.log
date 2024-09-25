@@ -1,0 +1,57 @@
+2024-09-25 07:34:24,311 - INFO - Starting XAI (SHAP) analysis.
+2024-09-25 07:34:24,312 - INFO - Loading model from /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
+2024-09-25 07:34:25,876 - INFO - Data loaded and preprocessed for SHAP analysis
+2024-09-25 07:34:25,877 - INFO - Applying SHAP to explain model predictions.
+2024-09-25 07:35:42,079 - INFO - Starting XAI (SHAP) analysis.
+2024-09-25 07:35:42,079 - INFO - Loading model from /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
+2024-09-25 07:35:43,450 - INFO - Data loaded and preprocessed for SHAP analysis
+2024-09-25 07:35:43,451 - INFO - Applying SHAP to explain model predictions.
+2024-09-25 07:37:11,648 - INFO - Starting XAI (SHAP) analysis.
+2024-09-25 07:37:11,648 - INFO - Loading model from /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
+2024-09-25 07:37:13,250 - INFO - Data loaded and preprocessed for SHAP analysis
+2024-09-25 07:37:13,250 - INFO - Applying SHAP to explain model predictions.
+2024-09-25 07:38:55,791 - INFO - Starting XAI (SHAP) analysis.
+2024-09-25 07:38:55,792 - INFO - Loading model from /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
+2024-09-25 07:38:57,345 - INFO - Data loaded and preprocessed for SHAP analysis
+2024-09-25 07:38:57,345 - INFO - Applying SHAP to explain model predictions.
+2024-09-25 07:40:28,720 - INFO - Starting XAI (SHAP) analysis.
+2024-09-25 07:40:28,721 - INFO - Loading model from /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
+2024-09-25 07:43:56,592 - INFO - Starting XAI (SHAP) analysis.
+2024-09-25 07:43:56,592 - INFO - Loading model from /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
+2024-09-25 07:45:20,244 - INFO - Starting XAI (SHAP) analysis.
+2024-09-25 07:45:20,244 - INFO - Loading model from /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
+2024-09-25 07:45:20,569 - INFO - Loaded feature names: ['PassengerId', 'Pclass', 'Sex', 'Age', 'SibSp', 'Parch', 'Fare', 'Embarked']
+2024-09-25 07:45:21,720 - INFO - Data loaded and preprocessed for SHAP analysis
+2024-09-25 07:45:21,721 - INFO - Applying SHAP to explain model predictions.
+2024-09-25 07:47:15,186 - INFO - Starting XAI (SHAP) analysis.
+2024-09-25 07:47:15,186 - INFO - Loading model from /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
+2024-09-25 07:47:17,066 - INFO - Data loaded and preprocessed for SHAP analysis
+2024-09-25 07:47:17,066 - INFO - Applying SHAP to explain model predictions.
+2024-09-25 07:47:17,066 - INFO - Preprocessing data through the model's pipeline.
+2024-09-25 07:47:17,082 - INFO - Data preprocessed: (183, 15)
+2024-09-25 07:48:57,549 - INFO - Starting XAI (SHAP) analysis.
+2024-09-25 07:48:57,549 - INFO - Loading model from /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
+2024-09-25 07:48:59,217 - INFO - Data loaded and preprocessed for SHAP analysis
+2024-09-25 07:48:59,217 - INFO - Applying SHAP to explain model predictions.
+2024-09-25 07:48:59,217 - INFO - Preprocessing data through the model's pipeline.
+2024-09-25 07:49:36,814 - INFO - Starting XAI (SHAP) analysis.
+2024-09-25 07:49:36,814 - INFO - Loading model from /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
+2024-09-25 07:49:38,322 - INFO - Data loaded and preprocessed for SHAP analysis
+2024-09-25 07:49:38,322 - INFO - Applying SHAP to explain model predictions.
+2024-09-25 07:49:38,322 - INFO - Preprocessing data through the model's pipeline.
+2024-09-25 07:51:44,171 - INFO - Starting XAI (SHAP) analysis.
+2024-09-25 07:51:44,171 - INFO - Loading model from /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
+2024-09-25 07:51:45,729 - INFO - Data loaded and preprocessed for SHAP analysis
+2024-09-25 07:51:45,729 - INFO - Applying SHAP to explain model predictions.
+2024-09-25 07:51:45,729 - INFO - Preprocessing data through the model's pipeline.
+2024-09-25 07:53:14,421 - INFO - Starting XAI (SHAP) analysis.
+2024-09-25 07:53:14,422 - INFO - Loading model from /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
+2024-09-25 07:53:16,445 - INFO - Data loaded and preprocessed for SHAP analysis
+2024-09-25 07:53:16,445 - INFO - Applying SHAP to explain model predictions.
+2024-09-25 07:53:16,445 - INFO - Preprocessing data through the model's pipeline.
+2024-09-25 07:58:31,925 - INFO - Starting XAI (SHAP) analysis.
+2024-09-25 07:58:31,925 - INFO - Loading model from /Users/Tarak/Personal/mlops_assignment_2/mlops_assignment_2/scripts/../models/best_titanic_model.pkl
+2024-09-25 07:58:33,907 - INFO - Data loaded and preprocessed for SHAP analysis
+2024-09-25 07:58:33,907 - INFO - Applying SHAP to explain model predictions.
+2024-09-25 07:58:33,907 - INFO - Preprocessing data through the model's pipeline.
+2024-09-25 07:58:33,924 - INFO - Data preprocessed: (714, 11)
