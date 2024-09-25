@@ -19,12 +19,17 @@ def predict():
         # Get the JSON request
         data = request.get_json(force=True)
 
-        # Ensure that the features are provided in the correct format
-        features = pd.DataFrame([data['features']])  # Wrap it in a list to make it a DataFrame
+        # Create a DataFrame from the input features
+        features = pd.DataFrame([data['features']])
 
-        # Ensure column names are present
-        columns = ['Pclass', 'Age', 'SibSp', 'Parch', 'Fare']  # Add more as needed
-        features = features.reindex(columns=columns)  # Reindex the DataFrame
+        # Add a dummy PassengerId to the DataFrame if it's required by the model
+        features['PassengerId'] = 0  # Dummy value, can be anything
+
+        # Ensure all required columns are present
+        columns = ['PassengerId', 'Pclass', 'Age', 'SibSp', 'Parch', 'Fare', 'Sex', 'Embarked']
+        
+        # Reindex the DataFrame to ensure correct column ordering
+        features = features.reindex(columns=columns)
 
         # Make the prediction
         prediction = model.predict(features)
